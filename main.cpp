@@ -162,7 +162,7 @@ int main() {
 // Asks for user inputs and returns whether the city does not exist in the map
 
 
-// Asks for an airline and returns whether the airline does not exist in the map
+// Asks for an airline and returns whether the airline does not exist in the map, 
 bool enterAirline(std::string& userInput, std::map<std::string, Airline>& airlinesMap){
     std::cout << "Enter an Airline: ";
     getline(std::cin, userInput);
