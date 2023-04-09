@@ -4,7 +4,7 @@
 
 #include "Airline.h"
 
-// Constructor
+// Constructor,
 Airline::Airline(std::string& carrier, std::string& airline) {
     this->carrier = carrier;
     this->airline = airline;
