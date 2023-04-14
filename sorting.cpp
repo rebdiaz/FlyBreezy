@@ -55,17 +55,18 @@ void mergeSort(std::vector<std::pair<std::string, double>>& arr, int left, int r
 }
 //City
 void printSortedCityDelayLikelihoods(const std::unordered_map<std::string, double>& cityDelayLikelihoods) {
-    //vector of pairs;each pair consists of std::string(the city) & double (the delay likelihood)
+    
+    //declare vector of pairs;each pair consists of std::string(the city) & double (the delay likelihood)
     std::vector<std::pair<std::string, double>> cityDelayLikelihoodsVec;
 
     cityDelayLikelihoodsVec.reserve(cityDelayLikelihoods.size()); //since it is large data set
-    //Inserting the elements from the unordered_map cityDelayLikelihoods into the vector to pass into the sorting function
+    //Inserting the elements from the cityDelayLikelihoods map into the vector to pass into the sorting function
     cityDelayLikelihoodsVec.insert(cityDelayLikelihoodsVec.end(), cityDelayLikelihoods.begin(), cityDelayLikelihoods.end());
 
     //sorting from first element to last element
     mergeSort(cityDelayLikelihoodsVec, 0, cityDelayLikelihoodsVec.size() - 1);
-    //iterate through vector
-    //'entry' reps each std::pair<std::string, double> element in the cityDelayLikelihoodsVec vector
+    
+    //iterate through cityDelayLikelihoodsVec vector
     for (const auto& entry : cityDelayLikelihoodsVec) {
         //entry.first refers to city name, entry.second refers to delay likelihood
         std::cout << "City: " << entry.first << ", Delay Likelihood: " << entry.second << "%" << std::endl;
