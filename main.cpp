@@ -3,6 +3,9 @@
 #include <map>
 #include "AirportData.h"
 #include "Airline.h"
+#include <vector>
+#include <unordered_map>
+#include "sorting.h"
 
 
 /*TO DO
@@ -15,6 +18,8 @@
 
 bool enterCity(std::string& userInput, std::map<std::string, Airline>& airlinesMap);
 bool enterAirline(std::string& userInput, std::map<std::string, Airline>& airlinesMap);
+void calculateCityDelayLikelihoods(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayLikelihoods);
+void calculateAirlineDelayLikelihoods(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayLikelihoods);
 
 int main() {
     // Initialize Storage and input stream objects
@@ -120,52 +125,121 @@ int main() {
         }
     }
 
+    
     std::string option = "-2";
-    while(option != "-1"){
-        std::cout << "FlyBreezy: Pick the Best Airline" << std::endl;
+    std::unordered_map<std::string, double> cityDelayLikelihoods;
+    std::unordered_map<std::string, double> airlineDelayLikelihoods;
+
+    while (option != "-1") {
+        std::cout << "FlyBreezy: View delay likelihood based on:" << std::endl;
         std::cout << "1 - Destination City" << std::endl;
         std::cout << "2 - Airline" << std::endl;
         std::cout << "3 - Destination Airport" << std::endl;
         std::cout << "Enter -1 to Exit" << std::endl;
         std::cin >> option;
 
-        std::string userInput = "";
-        if(option == "1"){
-            // Find top 5 airlines for the destination city
-            sort("city");
+        int choice;
+        if (option == "1") {
+            std::cout << "Choose sorting method: " << std::endl;
+            std::cout << "1. Merge sort" << std::endl;
+            std::cout << "2. Quick sort" << std::endl;
+            std::cin >> choice;
 
-        } else if (option == "2"){
-            // Ask user for an airline until a valid one is entered
-            getline(std::cin, userInput);
-            while(enterAirline(userInput, airlinesMap)){
-                auto airlineIterator = airlinesMap.begin();
-                std::cout << "Airline not found! Try one of these: " << std::endl;
-                // Print out all the valid airlines
-                for(; airlineIterator != airlinesMap.end(); airlineIterator++){
-                        std::cout << airlineIterator->first << std::endl;
-                }
+            switch (choice) {
+                case 1: // sort data by city likelihood using merge sort
+                    
+                    calculateCityDelayLikelihoods(airlinesMap, cityDelayLikelihoods);
+                    printSortedCityDelayLikelihoods(cityDelayLikelihoods);
+                    break;
+                case 2: // sort data by city likelihood using other sorting method
+                    // Implement the other sorting method here...
+                    break;
             }
+        } else if (option == "2") {
+            std::cout << "Choose sorting method: " << std::endl;
+            std::cout << "1. Merge sort" << std::endl;
+            std::cout << "2. Quick sort" << std::endl;
+            std::cin >> choice;
 
-            // Find top 5 destinations for the airline
-
-        } else if(option == "3"){
-            // Find top 5 airlines for the destination airport
-        }  else {
+            switch (choice) {
+                case 1: // sort data by Airline likelihood using merge sort
+                    
+                    calculateAirlineDelayLikelihoods(airlinesMap, airlineDelayLikelihoods);
+                    printSortedAirlineDelayLikelihoods(airlineDelayLikelihoods);
+                    break;
+                case 2: // sort data by airline likelihood using other sorting method
+                    // Implement the other sorting method here...
+                    break;
+            }
+        } else {
             std::cout << "Please enter a valid option (1, 2, 3, -1)" << std::endl;
         }
     }
 
-
     return 0;
+
 }
 
-// Asks for user inputs and returns whether the city does not exist in the map
+//**new additions
 
+void calculateCityDelayLikelihoods(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayLikelihoods) {
+    //maps a city name to a pair of integers
+    //first int is the total number of delayed flights for the city, second int is the total number of flights for the city
+    std::unordered_map<std::string, std::pair<int, int>> cityDelaysAndTotalFlights;
 
-// Asks for an airline and returns whether the airline does not exist in the map, 
-bool enterAirline(std::string& userInput, std::map<std::string, Airline>& airlinesMap){
-    std::cout << "Enter an Airline: ";
-    getline(std::cin, userInput);
-    auto airlineIterator = airlinesMap.find(userInput);
-    return airlineIterator == airlinesMap.end();
+    //declare const ref airlineEntry to iterate through the airlinesMap
+   
+    for (const auto& airlineEntry : airlinesMap) {
+        //get an Airline object to use in accessing the monthlyAirportData vector for the airline
+        const Airline& airlineDelay = airlineEntry.second;
+
+            //For each Airline object, iterate through its MonthlyAirportData
+            for (const auto& airportData : airlineDelay.getMonthlyAirportData()) {
+                const std::string& city = airportData.getAirportCity(); //Extract city name from the AirportData object
+
+                //update the cityDelaysAndTotalFlights unordered_map for the current city:
+                //updating the total number of delayed flights and total number of flights for each city
+                cityDelaysAndTotalFlights[city].first += airportData.getDelayedFlights(); 
+                cityDelaysAndTotalFlights[city].second += airportData.getTotalFlights(); 
+            }
+   }
+    //iterate through the map
+    for (const auto& entry : cityDelaysAndTotalFlights) { 
+        // Extract city name, number of delayed flights, and the total number of flights
+        const std::string& city = entry.first;  
+        int delayedFlights = entry.second.first;
+        int totalFlights = entry.second.second;
+
+        //Store the delay likelihood in a map with the city name as the key 
+        cityDelayLikelihoods[city] = (static_cast<double>(delayedFlights) / totalFlights) * 100;
+        
+    }
 }
+
+//Airline
+void calculateAirlineDelayLikelihoods(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayLikelihoods) {
+ 
+    for (const auto& airlineEntry : airlinesMap) {
+        //For each airline, get the airline name and the Airline delay object
+        const std::string& airlineName = airlineEntry.first;
+        const Airline& airlineDelay = airlineEntry.second;
+
+        //initialize delayedFlights and totalFlights
+        int delayedFlights = 0;
+        int totalFlights = 0;
+
+        //iterate through the AirportData objects for each airline using getMonthlyAirportData() member function
+        for (const auto& airportData : airlineDelay.getMonthlyAirportData()) {
+            //adds the delayed flights and total flights for each airport
+            delayedFlights += airportData.getDelayedFlights();
+            totalFlights += airportData.getTotalFlights();
+        }
+        //calculates the delay likelihood after processing all airport data for the airline
+        //delay likelihood is then stored in a map 
+        //airlineName is the key and the delay likelihood is the value.
+        airlineDelayLikelihoods[airlineName] = (static_cast<double>(delayedFlights) / totalFlights) * 100;
+    }
+}
+
+
+
