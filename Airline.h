@@ -1,7 +1,3 @@
-//
-// Created by Rebecca Diaz on 3/8/23.
-//
-
 #pragma once
 #include <string>
 #include <vector>
@@ -20,10 +16,10 @@ public:
     // Constructor
     Airline(std::string& carrier, std::string& airline);
 
-    // Mutators
+    // Mutator
     void addAirportData(AirportData data);
 
-    // Sorting
+    const std::vector<AirportData>& getMonthlyAirportData() const;
 
 };
 
