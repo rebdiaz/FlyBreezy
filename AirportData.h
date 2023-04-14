@@ -33,7 +33,6 @@ class AirportData {
 
 public:
     //**new additions
-    std::string airportInitials;
     int getDelayedFlights() const;
     int getTotalFlights() const;
     const std::string& getAirportCity() const;
