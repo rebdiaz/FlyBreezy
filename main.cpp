@@ -181,7 +181,7 @@ int main() {
 }
 
 //**new additions
-
+//City
 void calculateCityDelayLikelihoods(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayLikelihoods) {
     //maps a city name to a pair of integers
     //first int is the total number of delayed flights for the city, second int is the total number of flights for the city
