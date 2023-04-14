@@ -67,4 +67,21 @@ void AirportData::setTimeInfo(int totalDelayTime, int carrierDelayTime, int weat
     this->lateAircraftDelayTime = lateAircraftDelayTime;
 }
 
+//**additions
+void AirportData::setDelaysOver15(int delaysOver15) {
+    this->delaysOver15 = delaysOver15;
+}
+
+int AirportData::getDelayedFlights() const {
+    return delaysOver15;
+}
+
+int AirportData::getTotalFlights() const {
+    return totalArrivals;
+}
+
+const std::string& AirportData::getAirportCity() const {
+    return airportCity;
+}
+
 
