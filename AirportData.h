@@ -28,8 +28,16 @@ class AirportData {
     int nasDelayTime;
     int securityDelayTime;
     int lateAircraftDelayTime;
+    //*addition
+    int delayedFlights;
 
 public:
+    //**new additions
+    std::string airportInitials;
+    int getDelayedFlights() const;
+    int getTotalFlights() const;
+    const std::string& getAirportCity() const;
+    
     // Constructor
     AirportData(std::string& airportInitials, std::string& airportCity,
                 std::string& airportState, std::string& airportName);
