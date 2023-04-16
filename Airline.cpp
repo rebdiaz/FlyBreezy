@@ -4,7 +4,7 @@
 
 #include "Airline.h"
 
-// Constructor,
+// Constructor
 Airline::Airline(std::string& carrier, std::string& airline) {
     this->carrier = carrier;
     this->airline = airline;
@@ -15,4 +15,8 @@ Airline::Airline(std::string& carrier, std::string& airline) {
 // Add given data to the vector of data
 void Airline::addAirportData(AirportData data) {
     monthlyAirportData.push_back(data);
+}
+
+const std::vector<AirportData> &Airline::getMonthlyAirportData() const {
+    return monthlyAirportData;
 }
