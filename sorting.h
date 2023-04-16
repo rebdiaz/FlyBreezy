@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include <utility>
 #include <unordered_map>
@@ -9,3 +11,4 @@ void mergeSort(std::vector<std::pair<std::string, double>>& arr, int left, int r
 void printSortedCityDelayLikelihoods(const std::unordered_map<std::string, double>& cityDelayLikelihoods);
 //airline
 void printSortedAirlineDelayLikelihoods(const std::unordered_map<std::string, double>& airlineDelayLikelihoods);
+
