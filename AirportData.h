@@ -36,7 +36,8 @@ public:
     int getDelayedFlights() const;
     int getTotalFlights() const;
     const std::string& getAirportCity() const;
-    
+    void setDelaysOver15(int delaysOver15);
+
     // Constructor
     AirportData(std::string& airportInitials, std::string& airportCity,
                 std::string& airportState, std::string& airportName);
