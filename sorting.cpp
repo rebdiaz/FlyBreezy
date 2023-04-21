@@ -2,28 +2,27 @@
 #include "sorting.h"
 #include <iostream>
 
-//Taking in a vector of pairs, each pair represents a city or airline and its delay likelihood
-void merge(std::vector<std::pair<std::string, double>>& arr, int left, int mid, int right) {
-    int sizeLeft = mid - left + 1; //calculate the size of the left subarray
-    int sizeRight = right - mid;   //calculate the size of the right subarray
+void merge(std::vector<std::pair<std::string, double>>& arr, int left, int mid, int right) { //adapted from sorting slides cop3530
+    int m1 = mid - left + 1; // size of the left subarray 
+    int m2 = right - mid;   // size of the right subarray
 
-    std::vector<std::pair<std::string, double>> leftArr(sizeLeft); // store the left subarray
-    std::vector<std::pair<std::string, double>> rightArr(sizeRight); // store the right subarray
+    std::vector<std::pair<std::string, double>> leftArr(m1); // store in left subarray
+    std::vector<std::pair<std::string, double>> rightArr(m2); // store in right subarray
 
-    for (int i = 0; i < sizeLeft; i++) {
+    for (int i = 0; i < m1; i++) {
         leftArr[i] = arr[left + i];
     }
-    for (int i = 0; i < sizeRight; i++) {
+    for (int i = 0; i < m2; i++) {
         rightArr[i] = arr[mid + 1 + i];
     }
+    int i, j, k;
+    i = 0;
+    j = 0;
+    k = left;
 
-    int i = 0;
-    int j = 0;
-    int k = left;
-
-    while (i < sizeLeft && j < sizeRight) {
-        //compare the second element (delay likelihood) of current pair in leftArr with that of current pair in rightArr
-        if (leftArr[i].second >= rightArr[j].second) {
+    while (i < m1 && j < m2) {
+        //compare delay likelihood of pair in leftArr with that in rightArr
+        if (leftArr[i].second >= rightArr[j].second) { 
             arr[k] = leftArr[i];
             i++;
         } else {
@@ -33,13 +32,13 @@ void merge(std::vector<std::pair<std::string, double>>& arr, int left, int mid, 
         k++;
     }
 
-    while (i < sizeLeft) {
+    while (i < m1) {
         arr[k] = leftArr[i];
         i++;
         k++;
     }
 
-    while (j < sizeRight) {
+    while (j < m2) {
         arr[k] = rightArr[j];
         j++;
         k++;
@@ -55,75 +54,60 @@ void mergeSort(std::vector<std::pair<std::string, double>>& arr, int left, int r
     }
 }
 //City
-void printSortedCityDelayLikelihoods(const std::unordered_map<std::string, double>& cityDelayLikelihoods) {
+void sortedCityDelay(std::unordered_map<std::string, double>& cityDelayCalc) {
+    std::vector<std::pair<std::string, double>> cityDelayVec; //city and delay vector
 
-    //declare vector of pairs;each pair consists of std::string(the city) & double (the delay likelihood)
-    std::vector<std::pair<std::string, double>> cityDelayLikelihoodsVec;
-
-    cityDelayLikelihoodsVec.reserve(cityDelayLikelihoods.size()); //since it is large data set
-    //Inserting the elements from the cityDelayLikelihoods map into the vector to pass into the sorting function
-    cityDelayLikelihoodsVec.insert(cityDelayLikelihoodsVec.end(), cityDelayLikelihoods.begin(), cityDelayLikelihoods.end());
-
-    //sorting from first element to last element
-    mergeSort(cityDelayLikelihoodsVec, 0, cityDelayLikelihoodsVec.size() - 1);
-
-    //iterate through cityDelayLikelihoodsVec vector
-    for (const auto& entry : cityDelayLikelihoodsVec) {
-        //entry.first refers to city name, entry.second refers to delay likelihood
-        std::cout << "City: " << entry.first << ", Delay Likelihood: " << entry.second << "%" << std::endl;
-        std::cout << std::endl;
-
+    cityDelayVec.reserve(cityDelayCalc.size()); //for vector capacity https://cplusplus.com/reference/vector/vector/reserve/
+    for (const auto& elements : cityDelayCalc) { //insert elements from map to vector for sorting
+        cityDelayVec.push_back(elements);
     }
 
-    // Print top 5 worst cities
-    std::cout << "Top 5 Worst Cities to Fly to Based on Delay Likelihood: " << std::endl;
-    for(int i = 0; i < 5; i++){
-        std::cout << (i+1) << ". " << cityDelayLikelihoodsVec.at(i).first << std::endl;
+    mergeSort(cityDelayVec, 0, cityDelayVec.size() - 1); //sort from first to last element
+
+    for (const auto& elements : cityDelayVec) { // get city and the delay
+
+        std::cout << "City: " << elements.first << ", Delay Likelihood: " << elements.second << "%" << std::endl;
+        std::cout << std::endl; 
+
     }
-    // Print top 5 best cities
-    std::cout << "Top 5 Best Cities to Fly to Based on Delay Likelihood: " << std::endl;
-    int size = cityDelayLikelihoodsVec.size();
-    for(int i = 0; i < 5; i++){
-        std::cout << (i+1) << ". " << cityDelayLikelihoodsVec.at(size - 1 - i).first << std::endl;
-    }
-    std::cout << std::endl;
 }
 
 
 //Airline
-//std::string keys (representing airline names) and double values (delay likelihoods)
-void printSortedAirlineDelayLikelihoods(const std::unordered_map<std::string, double>& airlineDelayLikelihoods) {
+void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayCalc) {
+    
+    std::vector<std::pair<std::string, double>> airlineDelayVec; 
 
-    std::vector<std::pair<std::string, double>> airlineDelayLikelihoodsVector;
+    airlineDelayVec.reserve(airlineDelayCalc.size()); //since it is a large data set
 
-    airlineDelayLikelihoodsVector.reserve(airlineDelayLikelihoods.size());
-    //Inserting the elements from the unordered_map airlineDelayLikelihoods into the vector for sorting
-    airlineDelayLikelihoodsVector.insert(airlineDelayLikelihoodsVector.end(), airlineDelayLikelihoods.begin(), airlineDelayLikelihoods.end());
-
-    //sorting from the first element to the last element
-    mergeSort(airlineDelayLikelihoodsVector, 0, airlineDelayLikelihoodsVector.size() - 1);
+    for (const auto& elements : airlineDelayCalc) { //insert elements from map to vector for sorting
+        airlineDelayVec.push_back(elements);
+    }
+    
+    mergeSort(airlineDelayVec, 0, airlineDelayVec.size() - 1); //sorting from the first element to the last element
 
     std::cout << "Airline Delay Likelihoods:" << std::endl;
-    for (const auto& pair : airlineDelayLikelihoodsVector) {
+
+    for (const auto& pair : airlineDelayVec) {
         const std::string& airlineCode = pair.first;
         double delayLikelihood = pair.second;
 
         std::cout << airlineCode << ": " << delayLikelihood << "%" << std::endl;
-        std::cout << std::endl;
+        std::cout << std::endl; 
 
     }
-
     // Print top 5 worst airlines
     std::cout << "Top 5 Worst Airlines to Fly to Based on Delay Likelihood: " << std::endl;
     for(int i = 0; i < 5; i++){
-        std::cout << (i+1) << ". " << airlineDelayLikelihoodsVector.at(i).first << std::endl;
+        std::cout << (i+1) << ". " << airlineDelayVec.at(i).first << std::endl;
     }
     // Print top 5 best airlines
     std::cout << "Top 5 Best Airlines to Fly to Based on Delay Likelihood: " << std::endl;
-    int size = airlineDelayLikelihoodsVector.size();
+    int size = airlineDelayVec.size();
     for(int i = 0; i < 5; i++){
-        std::cout << (i+1) << ". " << airlineDelayLikelihoodsVector.at(size - 1 - i).first << std::endl;
+        std::cout << (i+1) << ". " << airlineDelayVec.at(size - 1 - i).first << std::endl;
     }
     std::cout << std::endl;
 }
+
 
