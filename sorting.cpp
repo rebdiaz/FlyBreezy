@@ -3,8 +3,8 @@
 #include <iostream>
 
 void merge(std::vector<std::pair<std::string, double>>& arr, int left, int mid, int right) { //adapted from sorting slides cop3530
-    int m1 = mid - left + 1; // size of the left subarray 
-    int m2 = right - mid;   // size of the right subarray
+    int m1 = mid - left + 1;  
+    int m2 = right - mid;   
 
     std::vector<std::pair<std::string, double>> leftArr(m1); // store in left subarray
     std::vector<std::pair<std::string, double>> rightArr(m2); // store in right subarray
