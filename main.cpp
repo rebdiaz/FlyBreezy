@@ -289,7 +289,7 @@ void calculateCityDelay(std::map<std::string, Airline>& airlinesMap, std::unorde
     }
 }
 //Airline
-void calculateAirlineDelay(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc) {
+void calculateAirlineDelay(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc) {
     for (auto& airlinedata : airlinesMap) {
         std::string& airlineName = airlinedata.first; //get airline
         Airline& airlineDelay = airlinedata.second;   //get the delay
