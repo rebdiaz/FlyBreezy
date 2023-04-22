@@ -11,9 +11,9 @@
 
 bool enterCity(std::string& userInput, std::map<std::string, Airline>& airlinesMap);
 bool enterAirline(std::string& userInput, std::map<std::string, Airline>& airlinesMap);
-void calculateCityDelay(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayCalc);
-void calculateAirlineDelay(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc);
-void calculateAirlineDelayForCity(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc, std::string destCity);
+void calculateCityDelay(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayCalc);
+void calculateAirlineDelay(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc);
+void calculateAirlineDelayForCity(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc, std::string destCity);
 
 int main() {
     // Initialize Storage and input stream objects
@@ -264,23 +264,23 @@ int main() {
 
 //**new additions
 
-void calculateCityDelay(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayCalc) {
+void calculateCityDelay(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayCalc) {
      
     std::unordered_map<std::string, std::pair<int, int>> trackCityMap; //map to keep track of city, total number of delayed and total number of flights
    
-    for (const auto& airlinedata : airlinesMap) {
-        const Airline& airlineDelay = airlinedata.second;
+    for (auto& airlinedata : airlinesMap) {
+        Airline& airlineDelay = airlinedata.second;
 
-            for (const auto& airport_iter : airlineDelay.getMonthlyAirportData()) { //iterate through MonthlyAirportData for each airline
-                const std::string& city = airport_iter.getAirportCity();        //Get the city 
+            for (auto& airport_iter : airlineDelay.getMonthlyAirportData()) { //iterate through MonthlyAirportData for each airline
+                std::string& city = airport_iter.getAirportCity();        //Get the city 
 
                 trackCityMap[city].first += airport_iter.getDelayedFlights(); // update to get the total number of delayed flights
                 trackCityMap[city].second += airport_iter.getTotalFlights(); //update to get the total number of flights
             }
    }
     
-    for (const auto& city_iter : trackCityMap) { //get the city, number of delayed and total flights 
-        const std::string& city = city_iter.first;  
+    for (auto& city_iter : trackCityMap) { //get the city, number of delayed and total flights 
+        std::string& city = city_iter.first;  
         int delayedFlights = city_iter.second.first;
         int totalFlights = city_iter.second.second;
 
@@ -290,14 +290,14 @@ void calculateCityDelay(const std::map<std::string, Airline>& airlinesMap, std::
 }
 //Airline
 void calculateAirlineDelay(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc) {
-    for (const auto& airlinedata : airlinesMap) {
-        const std::string& airlineName = airlinedata.first; //get airline
-        const Airline& airlineDelay = airlinedata.second;   //get the delay
+    for (auto& airlinedata : airlinesMap) {
+        std::string& airlineName = airlinedata.first; //get airline
+        Airline& airlineDelay = airlinedata.second;   //get the delay
 
         int delayedFlights = 0; //initialize variables for delayed and total flight data for airline
         int totalFlights = 0;
 
-        for (const auto& airport_iter : airlineDelay.getMonthlyAirportData()) { // get the total delayed and total flights for calculation
+        for (auto& airport_iter : airlineDelay.getMonthlyAirportData()) { // get the total delayed and total flights for calculation
             
             delayedFlights += airport_iter.getDelayedFlights(); 
             totalFlights += airport_iter.getTotalFlights();
@@ -305,17 +305,17 @@ void calculateAirlineDelay(const std::map<std::string, Airline>& airlinesMap, st
         airlineDelayCalc[airlineName] = (static_cast<double>(delayedFlights) / totalFlights) * 100; //calculate the percentage delay and store in the map
     }
 }
-void calculateAirlineDelayForCity(const std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc, std::string destCity){
-    for (const auto& airlineEntry : airlinesMap) {
+void calculateAirlineDelayForCity(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc, std::string destCity){
+    for (auto& airlineEntry : airlinesMap) {
         //For each airline, get the airline name and the Airline delay 
-        const std::string& airlineName = airlineEntry.first;
-        const Airline& airlineDelay = airlineEntry.second;
+        std::string& airlineName = airlineEntry.first;
+        Airline& airlineDelay = airlineEntry.second;
 
         //initialize delayedFlights and totalFlights
         int delayedFlights = 0;
         int totalFlights = 0;
 
-        for (const auto& airport_iter : airlineDelay.getMonthlyAirportData()) {
+        for (auto& airport_iter : airlineDelay.getMonthlyAirportData()) {
             //adds the delayed flights and total flights IF its in the destination city
             if(airport_iter.getAirportCity() == destCity){
                 delayedFlights += airport_iter.getDelayedFlights();
