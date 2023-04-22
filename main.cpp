@@ -306,10 +306,10 @@ void calculateAirlineDelay(std::map<std::string, Airline>& airlinesMap, std::uno
     }
 }
 void calculateAirlineDelayForCity(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc, std::string destCity){
-    for (auto& airlineEntry : airlinesMap) {
+    for (auto& airlinedata : airlinesMap) {
         //For each airline, get the airline name and the Airline delay 
-        std::string& airlineName = airlineEntry.first;
-        Airline& airlineDelay = airlineEntry.second;
+        std::string& airlineName = airlinedata.first;
+        Airline& airlineDelay = airlinedata.second;
 
         //initialize delayedFlights and totalFlights
         int delayedFlights = 0;
