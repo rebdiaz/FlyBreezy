@@ -58,13 +58,13 @@ void sortedCityDelay(std::unordered_map<std::string, double>& cityDelayCalc) {
     std::vector<std::pair<std::string, double>> cityDelayVec; //city and delay vector
 
     cityDelayVec.reserve(cityDelayCalc.size()); //for vector capacity https://cplusplus.com/reference/vector/vector/reserve/
-    for (const auto& elements : cityDelayCalc) { //insert elements from map to vector for sorting
+    for (auto& elements : cityDelayCalc) { //insert elements from map to vector for sorting https://www.geeksforgeeks.org/sorting-a-map-by-value-in-c-stl/amp/
         cityDelayVec.push_back(elements);
     }
 
     mergeSort(cityDelayVec, 0, cityDelayVec.size() - 1); //sort from first to last element
 
-    for (const auto& elements : cityDelayVec) { // get city and the delay
+    for (auto& elements : cityDelayVec) { // get city and the delay
 
         std::cout << "City: " << elements.first << ", Delay Likelihood: " << elements.second << "%" << std::endl;
         std::cout << std::endl; 
@@ -80,7 +80,7 @@ void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayCal
 
     airlineDelayVec.reserve(airlineDelayCalc.size()); //since it is a large data set
 
-    for (const auto& elements : airlineDelayCalc) { //insert elements from map to vector for sorting
+    for (auto& elements : airlineDelayCalc) { //insert elements from map to vector for sorting
         airlineDelayVec.push_back(elements);
     }
     
@@ -88,7 +88,7 @@ void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayCal
 
     std::cout << "Airline Delay Likelihoods:" << std::endl;
 
-    for (const auto& pair : airlineDelayVec) {
+    for (auto& pair : airlineDelayVec) {
         const std::string& airlineCode = pair.first;
         double delayLikelihood = pair.second;
 
