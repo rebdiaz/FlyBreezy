@@ -13,7 +13,7 @@ void sortedCityDelay(std::unordered_map<std::string, double>& cityDelayLikelihoo
 void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayLikelihoods);
 
 void quickSort(std::vector<std::pair<std::string, double>>&arr, int low, int high);
-int partition(std::vector<std::pair<std::string, double>>&arr, int low, int high);
+double partition(std::vector<std::pair<std::string, double>>&arr, int low, int high);
 
 //city quick sort
 void sortedCityDelayQ(std::unordered_map<std::string, double>& cityDelayCalc);
