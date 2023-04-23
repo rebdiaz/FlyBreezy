@@ -16,7 +16,7 @@ Airline::Airline(std::string& carrier, std::string& airline) {
 void Airline::addAirportData(AirportData data) {
     monthlyAirportData.push_back(data);
 }
-
+//Accessor
 std::vector<AirportData> &Airline::getMonthlyAirportData() {
     return monthlyAirportData;
 }
