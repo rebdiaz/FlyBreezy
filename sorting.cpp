@@ -181,6 +181,19 @@ void sortedCityDelayQ(std::unordered_map<std::string, double>& cityDelayCalc) {
         std::cout << std::endl;
 
     }
+    // Print top 5 worst cities
+    std::cout << "Top 5 Worst Cities to Fly to Based on Delay Likelihood: " << std::endl;
+    for(int i = 0; i < 5; i++){
+        std::cout << (i+1) << ". " << cityDelayVec.at(i).first << std::endl;
+    }
+    std::cout << std::endl;
+    // Print top 5 best cities
+    std::cout << "Top 5 Best Cities to Fly to Based on Delay Likelihood: " << std::endl;
+    int size = cityDelayVec.size();
+    for(int i = 0; i < 5; i++){
+        std::cout << (i+1) << ". " << cityDelayVec.at(size - 1 - i).first << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 //Airline Quick Sort
