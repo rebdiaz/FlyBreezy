@@ -111,20 +111,19 @@ void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayCal
 }
 
 
-//Quick uses information from slide 122 of the Graphs ppt
 void quickSort(std::vector<std::pair<std::string, double>>&arr, int low, int high)
 {
     if (low<high)
     {
-        int pivot = partition(arr, low, high);
+        double pivot = partition(arr, low, high);
         quickSort(arr, low, pivot-1);
         quickSort(arr, pivot+1, high);
     }
 }
 
-int partition(std::vector<std::pair<std::string, double>>&arr, int low, int high)
+double partition(std::vector<std::pair<std::string, double>>&arr, int low, int high)
 {
-    int pivot = arr[low].second;
+    double pivot = arr[low].second;
     int up = low, down = high;
     while (up < down)
     {
@@ -146,19 +145,21 @@ int partition(std::vector<std::pair<std::string, double>>&arr, int low, int high
         }
         if (up < down)
         {
-            std::pair<std::string, double> temp1(arr[up].first, arr[up].second);
+            std::string s =arr[up].first;
+            double i = arr[up].second;
             arr[up].first = arr[down].first;
             arr[up].second = arr[down].second;
-            arr[down].first = temp1.first;
-            arr[down].second = temp1.second;
+            arr[down].first = s;
+            arr[down].second = i;
         }
     }
-        std::pair<std::string, double> temp2(arr[low].first, arr[low].second);
-        arr[low].first = arr[down].first;
-        arr[low].second = arr[down].second;
-        arr[down].first = temp2.first;
-        arr[down].second = temp2.second;
-        return down;
+    std::string s2 =arr[low].first;
+    double i2 = arr[low].second;
+    arr[low].first = arr[down].first;
+    arr[low].second = arr[down].second;
+    arr[down].first = s2;
+    arr[down].second = i2;
+    return down;
 }
 
 //City Quick Sort
