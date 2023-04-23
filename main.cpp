@@ -10,8 +10,6 @@
 
 
 
-bool enterCity(std::string& userInput, std::map<std::string, Airline>& airlinesMap);
-bool enterAirline(std::string& userInput, std::map<std::string, Airline>& airlinesMap);
 void calculateCityDelay(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& cityDelayCalc);
 void calculateAirlineDelay(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc);
 void calculateAirlineDelayForCity(std::map<std::string, Airline>& airlinesMap, std::unordered_map<std::string, double>& airlineDelayCalc, std::string destCity);
@@ -88,7 +86,7 @@ int main() {
 
         // Set delay data
         data.setDelayInfo(totalArrivals, delaysOver15, carrierDelays, weatherDelays, nasDelays,
-                securityDelays, lateAircraftDelays, totalCancellations, totalDiverted);
+                          securityDelays, lateAircraftDelays, totalCancellations, totalDiverted);
 
         // Read time data
         getline(airlineData, buffer, ',');
@@ -106,7 +104,7 @@ int main() {
 
         // Set time data
         data.setTimeInfo(totalDelayTime, carrierDelayTime, weatherDelayTime, nasDelayTime,
-                securityDelayTime, lateAircraftDelayTime);
+                         securityDelayTime, lateAircraftDelayTime);
 
         // Add the airport data to the map
         auto airlineIterator = airlinesMap.find(airlineName);
@@ -152,7 +150,7 @@ int main() {
                     sortedCityDelay(cityDelayCalc);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
-                    std::cout << "Time for MergeSort: " << timeToRun.count() << " milliseconds" << std::endl << std::endl;
+                    std::cout << "Time for MergeSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
                     break;
                 case 2: // sort data by city likelihood using other sorting method
                     // Implement the other sorting method here...
@@ -162,7 +160,7 @@ int main() {
                     sortedCityDelayQ(cityDelayCalc);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
-                    std::cout << "Time for QuickSort: " << timeToRun.count() << " milliseconds" << std::endl << std::endl;
+                    std::cout << "Time for QuickSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
                     break;
             }
         } else if (option == "2") {
@@ -180,7 +178,7 @@ int main() {
                     sortedAirlineDelay(airlineDelayCalc);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
-                    std::cout << "Time for MergeSort: " << timeToRun.count() << " milliseconds" << std::endl << std::endl;
+                    std::cout << "Time for MergeSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
 
 
                     break;
@@ -192,7 +190,7 @@ int main() {
                     sortedAirlineDelayQ(airlineDelayCalc);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
-                    std::cout << "Time for QuickSort: " << timeToRun.count() << " milliseconds" << std::endl << std::endl;
+                    std::cout << "Time for QuickSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
                     break;
             }
         }  else if(option == "3"){
@@ -243,7 +241,7 @@ int main() {
                     sortedAirlineDelay(delaysForOneCity);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
-                    std::cout << "Time for MergeSort: " << timeToRun.count() << " milliseconds" << std::endl << std::endl;
+                    std::cout << "Time for MergeSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
                     break;
                 case 2: // sort data by city likelihood using other sorting method
                     // Implement the other sorting method here...
@@ -252,7 +250,7 @@ int main() {
                     sortedAirlineDelayQ(delaysForOneCity);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
-                    std::cout << "Time for QuickSort: " << timeToRun.count() << " milliseconds" << std::endl << std::endl;
+                    std::cout << "Time for QuickSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
                     break;
             }
 
