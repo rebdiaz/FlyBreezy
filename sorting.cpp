@@ -54,7 +54,7 @@ void mergeSort(std::vector<std::pair<std::string, double>>& arr, int left, int r
     }
 }
 //City
-void sortedCityDelayM(std::unordered_map<std::string, double>& cityDelayCalc) {
+void sortedCityDelay(std::unordered_map<std::string, double>& cityDelayCalc) {
     std::vector<std::pair<std::string, double>> cityDelayVec; //city and delay vector
 
     cityDelayVec.reserve(cityDelayCalc.size()); //for vector capacity https://cplusplus.com/reference/vector/vector/reserve/
@@ -74,7 +74,7 @@ void sortedCityDelayM(std::unordered_map<std::string, double>& cityDelayCalc) {
 
 
 //Airline
-void sortedAirlineDelayM(std::unordered_map<std::string, double>& airlineDelayCalc) {
+void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayCalc) {
 
     std::vector<std::pair<std::string, double>> airlineDelayVec;
 
