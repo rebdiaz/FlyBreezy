@@ -19,7 +19,7 @@ public:
     // Mutator
     void addAirportData(AirportData data);
 
-    const std::vector<AirportData>& getMonthlyAirportData() const;
+    std::vector<AirportData>& getMonthlyAirportData();
 
 };
 
