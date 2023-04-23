@@ -147,7 +147,7 @@ int main() {
                     calculateCityDelay(airlinesMap, cityDelayCalc);
                     start = std::chrono::system_clock::now();
                     //Call to sort
-                    sortedCityDelayM(cityDelayCalc);
+                    sortedCityDelay(cityDelayCalc);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
                     std::cout << "Time for MergeSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
@@ -175,7 +175,7 @@ int main() {
                     calculateAirlineDelay(airlinesMap, airlineDelayCalc);
                     start = std::chrono::system_clock::now();
                     //Call to sort
-                    sortedAirlineDelayM(airlineDelayCalc);
+                    sortedAirlineDelay(airlineDelayCalc);
                     end = std::chrono::system_clock::now();
                     timeToRun = end - start;
                     std::cout << "Time for MergeSort: " << timeToRun.count() << " nanoseconds" << std::endl << std::endl;
