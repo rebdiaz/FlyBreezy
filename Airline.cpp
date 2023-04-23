@@ -17,6 +17,6 @@ void Airline::addAirportData(AirportData data) {
     monthlyAirportData.push_back(data);
 }
 
-const std::vector<AirportData> &Airline::getMonthlyAirportData() const {
+std::vector<AirportData> &Airline::getMonthlyAirportData() {
     return monthlyAirportData;
 }
