@@ -54,7 +54,7 @@ void mergeSort(std::vector<std::pair<std::string, double>>& arr, int left, int r
     }
 }
 //City
-void sortedCityDelay(std::unordered_map<std::string, double>& cityDelayCalc) {
+void sortedCityDelayM(std::unordered_map<std::string, double>& cityDelayCalc) {
     std::vector<std::pair<std::string, double>> cityDelayVec; //city and delay vector
 
     cityDelayVec.reserve(cityDelayCalc.size()); //for vector capacity https://cplusplus.com/reference/vector/vector/reserve/
@@ -74,7 +74,7 @@ void sortedCityDelay(std::unordered_map<std::string, double>& cityDelayCalc) {
 
 
 //Airline
-void sortedAirlineDelay(std::unordered_map<std::string, double>& airlineDelayCalc) {
+void sortedAirlineDelayM(std::unordered_map<std::string, double>& airlineDelayCalc) {
 
     std::vector<std::pair<std::string, double>> airlineDelayVec;
 
@@ -168,8 +168,8 @@ double partition(std::vector<std::pair<std::string, double>>&arr, int low, int h
 void sortedCityDelayQ(std::unordered_map<std::string, double>& cityDelayCalc) {
     std::vector<std::pair<std::string, double>> cityDelayVec; //city and delay vector
 
-    cityDelayVec.reserve(cityDelayCalc.size()); //for vector capacity https://cplusplus.com/reference/vector/vector/reserve/
-    for (auto& elements : cityDelayCalc) { //insert elements from map to vector for sorting https://www.geeksforgeeks.org/sorting-a-map-by-value-in-c-stl/amp/
+    cityDelayVec.reserve(cityDelayCalc.size()); //for vector capacity 
+    for (auto& elements : cityDelayCalc) { //insert elements from map to vector for sorting 
         cityDelayVec.push_back(elements);
     }
 
